@@ -4,57 +4,47 @@ import datetime
 # 设置类
 class Settings():
 	def __init__(self):
-		# ===== 图片资源 =====
-		self.images = {
-			"bg" : pygame.image.load('images/bg3.jpg'),
-
-			"ship1" : pygame.image.load('images/ship1.png'),
-			"ship2" : pygame.image.load('images/ship2.png'),
-
-			"bullet1" : pygame.image.load('images/bullet1.png'),
-			"bullet2_1" : pygame.image.load('images/bullet2_1.png'),
-			"bullet2_2" : pygame.image.load('images/bullet2_2.png'),
-			"bullet2_3" : pygame.image.load('images/bullet2_3.png'),
-
-			"alien1" : pygame.image.load('images/alien1.png'),
-
-		}
 		# ===== 场景 =====
+		self.caption = "pygame_airwar"
 		self.screen_width = 512
 		self.screen_height = 768
-		self.bg_color = (0,0,0)
-		self.bg_pic = 'bg'
-		self.bg_speed = 2
-		self.caption = "Alien Invasion"
-		self.autofire = True
 
-		# ===== 分数 =====
+		self.bg_color = (0,0,0)
+		self.bg_pic = 'bg5'
+		self.bg_speed = 2
+
+		self.autofire = False
+
+		# 无敌时间
+		self.invincible_time = 3
+		self.invincible_flash = 2
+		# 游戏速度 每秒 60 帖
+		self.fpstime = 60
+
+		# ===== 字体 =====
 		self.fonts = {
-			"player1_score" : {
+			"player1" : {
 				"font" : 'arial',
-				"font_size" : 28,
+				"font_size" : 20,
 				"font_color" : (255,50,50),
 				"font_x" : 20,
 				"font_y" : 20
 			},
-			"player2_score" : {
+			"player2" : {
 				"font" : 'arial',
-				"font_size" : 28,
+				"font_size" : 20,
 				"font_color" : (50,50,255),
 				"font_x" : 20,
 				"font_y" : 50
 			},
 			"fps" : {
 				"font" : 'arial',
-				"font_size" : 28,
+				"font_size" : 20,
 				"font_color" : (200,200,0),
-				"font_x" : 550,
+				"font_x" : 400,
 				"font_y" : 20
 			},
 		}
-
-		# 游戏速度 每秒 60 帖
-		self.fpstime = 1 / 60
 
 		# ===== 飞船设置 =====
 		self.ship = {
@@ -94,9 +84,7 @@ class Settings():
 				# 等级一
 				1: {
 					"pic" : 'bullet1',
-					# 伤害
 					"power" : 1,
-					# 子弹数
 					"fire" : {
 							1:{
 								# 中心起始位置偏移
@@ -112,9 +100,7 @@ class Settings():
 				},
 				2: {
 					"pic" : 'bullet1',
-					# 伤害
 					"power" : 1,
-					# 子弹数
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : 0,"move_x" : 0,"move_y" : -15,"angle" : 0,},
 							2:{"satrt_x" : 0, "start_y" : 0,"move_x" : -3,"move_y" : -15,"angle" : 10,},
@@ -123,9 +109,7 @@ class Settings():
 				},
 				3: {
 					"pic" : 'bullet1',
-					# 伤害
 					"power" : 1,
-					# 子弹数
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : 0,"move_x" : 0,"move_y" : -15,"angle" : 0,},
 							2:{"satrt_x" : 0, "start_y" : 0,"move_x" : -3,"move_y" : -15,"angle" : 10,},
@@ -140,27 +124,14 @@ class Settings():
 				# 等级一
 				1: {
 					"pic" : 'bullet2_1',
-					# 伤害
 					"power" : 2,
-					# 子弹数
 					"fire" : {
-							1:{
-								# 中心起始位置偏移
-								"satrt_x" : 0,
-								"start_y" : -20,
-								# 移动方向像素
-								"move_x" : 0,
-								"move_y" : -10,
-								# 旋转图象(度)
-								"angle" : 0,
-							},
+							1:{"satrt_x" : 0,"start_y" : -20,"move_x" : 0,"move_y" : -10,"angle" : 0,},
 					}
 				},
 				2: {
 					"pic" : 'bullet2_1',
-					# 伤害
 					"power" : 2,
-					# 子弹数
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : -20,"move_x" : 0,"move_y" : -10,"angle" : 0,},
 							2:{"pic" : 'bullet2_2',"satrt_x" : -30, "start_y" : -10,"move_x" : 0,"move_y" : -10,"angle" : 0,},
@@ -169,9 +140,7 @@ class Settings():
 				},
 				3: {
 					"pic" : 'bullet2_1',
-					# 伤害
 					"power" : 1,
-					# 子弹数
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : -20,"move_x" : 0,"move_y" : -10,"angle" : 0,},
 							2:{"pic" : 'bullet2_2',"satrt_x" : -30, "start_y" : -8,"move_x" : 0,"move_y" : -8,"angle" : 0,},
@@ -190,5 +159,5 @@ class Settings():
 		self.alien_speen_x = 2
 		self.alien_speen_y = 5
 		# 外星人生成速度(秒)
-		self.alien_build_speen = 1 / 5
+		self.alien_build_speen = 1 / 10
 		self.alien_build_time = datetime.datetime.now()

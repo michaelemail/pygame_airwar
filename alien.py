@@ -4,11 +4,11 @@ import random
 from pygame.sprite import Sprite
 # 外星人
 class Alien(Sprite):
-	def __init__(self,ai_settings,screen):
+	def __init__(self,ai_settings,images,screen):
 		super(Alien , self).__init__()
 		self.screen = screen
 
-		self.image = ai_settings.images[ai_settings.alien_pic1].copy()
+		self.image = images[ai_settings.alien_pic1].copy()
 		self.rect = self.image.get_rect()
 
 		# 起始坐标

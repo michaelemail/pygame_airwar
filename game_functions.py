@@ -5,13 +5,14 @@ import datetime
 from bullet import Bullet
 from alien import Alien
 
-# 游戏速度控制
-def fps(game_time,fpstime):
-	tnow = datetime.datetime.now()
-	k = tnow - game_time
+# 游戏速度控制-不使用了
+def fps_control(objs):
+	k = datetime.datetime.now() - objs["times"]["game_time"]
 	#print(k.total_seconds())
-	if k.total_seconds() < fpstime:
+	if k.total_seconds() < objs["ai_settings"].fpstime:
 		return True
+
+	objs["times"]["game_time"] = datetime.datetime.now()
 	return False
 
 # 监视键盘和鼠标事件
@@ -21,6 +22,8 @@ def check_events(objs):
 			sys.exit()
 
 		elif event.type == pygame.KEYDOWN:
+			#if event.key == pygame.K_ESCAPE:
+		        #sys.exit()
 			if event.key == pygame.K_1:
 				objs['ships'][1].bullet_lv = 1
 			elif event.key == pygame.K_2:
@@ -67,7 +70,7 @@ def build_bullet(objs):
 			if k.total_seconds() > ship.fire_speen:
 				ship.fire_time = tnow
 				for k , fire in objs['ai_settings'].bullet[ship.bullet][ship.bullet_lv]["fire"].items():
-					new_bullet = Bullet(objs["ai_settings"], objs["screen"], ship, fire)
+					new_bullet = Bullet(objs["ai_settings"],objs["images"], objs["screen"], ship, fire)
 					ship.bullets.add(new_bullet)
 		# print(len(objs["bullets"]))
 
@@ -90,7 +93,7 @@ def build_alien(objs):
 	k = tnow - objs["ai_settings"].alien_build_time
 	if k.total_seconds() > objs["ai_settings"].alien_build_speen:
 		objs["ai_settings"].alien_build_time = tnow
-		new_alien = Alien(objs["ai_settings"], objs["screen"])
+		new_alien = Alien(objs["ai_settings"],objs["images"], objs["screen"])
 		objs["aliens"].add(new_alien)
 		# print(len(objs["aliens"]))
 
@@ -102,39 +105,50 @@ def check_alien(objs):
 
 	# 飞船触怪
 	for k,ship in objs['ships'].items():
-		if pygame.sprite.spritecollideany(ship, objs['aliens']):
-			print("Player" + str(ship.player) + " Ship hit!!!")
+		if ship.status == 1 and pygame.sprite.spritecollideany(ship, objs['aliens']):
+			ship.hit()
+			# print("Player" + str(ship.player) + " Ship hit!!!")
 
 # 字体
 def build_fonts(objs):
 	# for font in objs['fonts']:
+	fonts = {}
+	# ship
 	for k,ship in objs['ships'].items():
-		font = objs['fonts']["player"+str(ship.player)]
-		textSurfaceObj = font["obj"].render('P'+str(ship.player)+': ' + str(ship.score), True, font['settings']["font_color"])# 配置要显示的文字
+		fonts["player"+str(ship.player)] = {"id" : "player"+str(ship.player) , "title" : 'P'+str(ship.player)+': ' + str(ship.score)}
+
+	#fps
+	fonts["fps"] = {"id" : "fps" , "title" : 'fps: ' + str(int(objs["framerate"].get_fps()))}
+
+	for k,v in fonts.items():
+		font = objs['fonts'][v["id"]]
+		textSurfaceObj = font["obj"].render(v["title"], True, font['settings']["font_color"])# 配置要显示的文字
 		textRectObj = textSurfaceObj.get_rect()# 获得要显示的对象的rect
 		textRectObj.x = font['settings']["font_x"]
 		textRectObj.y = font['settings']["font_y"]
 
 		objs['screen'].blit(textSurfaceObj, textRectObj)# 绘制字体
 
-	
 def update_screen(objs):
 	# 每次循环时都重绘屏幕
 	# objs['screen'].fill(objs['ai_settings'].bg_color)
-	objs['bg1'].blitme()
-	objs['bg0'].blitme()
-	
+	for bg in objs['bgs']:
+		bg.update()
+		bg.blitme()
 
 	# 飞船
 	for k,ship in objs['ships'].items():
-		# 飞船的子弹
-		for bullet in ship.bullets.sprites():
-			bullet.blitme()
-
+		ship.update()
 		ship.blitme()
+		# 飞船的子弹
+#		ship.bullets.update()
+		for bullet in ship.bullets.sprites():
+			bullet.update()
+			bullet.blitme()
 
 	# 外星人
 	for alien in objs['aliens'].sprites():
+		alien.update()
 		alien.blitme()
 
 	build_fonts(objs)

@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 # 子弹
 class Bullet(Sprite):
-	def __init__(self,ai_settings, screen, ship , fire_setting):
+	def __init__(self,ai_settings, images ,screen, ship , fire_setting):
 		super(Bullet,self).__init__()
 		self.screen = screen
 
@@ -14,7 +14,7 @@ class Bullet(Sprite):
 		if "pic" in fire_setting.keys():
 			_pic = fire_setting["pic"]
 
-		self.image = ai_settings.images[_pic].copy()
+		self.image = images[_pic].copy()
 		self.rect = self.image.get_rect()
 		self.screen_rect = screen.get_rect()
 		self.rect.centerx = ship.rect.centerx
