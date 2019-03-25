@@ -21,6 +21,9 @@ class Images():
 			"bullet2_3" : 'images/bullet2_3.png',
 
 			"alien1" : 'images/alien1.png',
+
+			"boss1" : 'images/boss1.png',
+			"alien_bullet1" : 'images/alien_bullet1.png',
 		}
 
 		self.images = {}

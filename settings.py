@@ -13,7 +13,7 @@ class Settings():
 		self.bg_pic = 'bg5'
 		self.bg_speed = 2
 
-		self.autofire = False
+		self.autofire = True
 
 		# 无敌时间
 		self.invincible_time = 3
@@ -76,6 +76,8 @@ class Settings():
 				'key_fire' : 13
 			}
 		}
+
+
 
 		# ===== 子弹设置 =====
 		self.bullet = {
@@ -152,6 +154,37 @@ class Settings():
 			}
 		}
 
+
+		# ===== boss设置 =====
+		self.boss = {
+			1 : {'pic' : 'boss1',
+				# 移动速度
+				'moving_point' : 2,
+				# 攻击速度
+				'fire_speen' : 1/2,
+				'bullet' : 1,
+				'bullet_lv' : 1,
+
+			},
+		}
+
+		# ===== boss子弹设置 =====
+		self.boss_bullet = {
+			1: {
+				1: {
+					"pic" : 'alien_bullet1',
+					"power" : 2,
+					"fire" : {
+						1:{"pic" : 'alien_bullet1',"satrt_x" : 0,"start_y" : 120,"move_x" : 0,"move_y" : 5,"angle" : 0,},
+						2:{"pic" : 'alien_bullet1',"satrt_x" : 0, "start_y" : 120,"move_x" : -3,"move_y" : 5,"angle" : 0,},
+						3:{"pic" : 'alien_bullet1',"satrt_x" : 0,"start_y" : 120,"move_x" : 3,"move_y" : 5,"angle" : 0,},
+						4:{"pic" : 'alien_bullet1',"satrt_x" : 0, "start_y" : 120,"move_x" : -6,"move_y" : 5,"angle" : 0,},
+						5:{"pic" : 'alien_bullet1',"satrt_x" : 0,"start_y" : 120,"move_x" : 6,"move_y" : 5,"angle" : 0,},
+					}
+				},
+			}
+		}
+
 		# ===== 外星人设置 =====
 		self.alien_pic1 = 'alien1'
 		self.alien_point = 50
@@ -159,5 +192,5 @@ class Settings():
 		self.alien_speen_x = 2
 		self.alien_speen_y = 5
 		# 外星人生成速度(秒)
-		self.alien_build_speen = 1 / 10
+		self.alien_build_speen = 1 / 5
 		self.alien_build_time = datetime.datetime.now()

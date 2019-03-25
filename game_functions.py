@@ -73,6 +73,21 @@ def build_bullet(objs):
 					new_bullet = Bullet(objs["ai_settings"],objs["images"], objs["screen"], ship, fire)
 					ship.bullets.add(new_bullet)
 		# print(len(objs["bullets"]))
+	for k,boss in objs['bosss'].items():
+		if boss.fire:
+			tnow = datetime.datetime.now()
+			k = tnow - boss.fire_time
+			# 如果 当前时间-上次发射时间 > 间隔时间
+			# print(k.total_seconds())
+			if k.total_seconds() > boss.fire_speen:
+				boss.fire_time = tnow
+				for k , fire in objs['ai_settings'].boss_bullet[boss.bullet][boss.bullet_lv]["fire"].items():
+					new_bullet = Bullet(objs["ai_settings"],objs["images"], objs["screen"], boss, fire)
+					boss.bullets.add(new_bullet)
+
+					# print(len(boss.bullets))
+			
+
 
 # 子弹-删除已消失的
 def check_bullet(objs):
@@ -81,10 +96,32 @@ def check_bullet(objs):
 			if bullet.rect.bottom <= 0:
 				ship.bullets.remove(bullet)
 
+		# 是否打中小兵
 		collisions = pygame.sprite.groupcollide(ship.bullets, objs['aliens'], True, True)
 		if collisions:
 			ship.score += objs["ai_settings"].alien_point
 			# print("score:" + str(objs["score"]))
+
+		# 是否打中Boss
+		for k,boss in objs['bosss'].items():
+			if pygame.sprite.spritecollide(boss,ship.bullets,True):
+				boss.hit()
+				ship.score += objs["ai_settings"].alien_point
+
+
+	for k,boss in objs['bosss'].items():
+		for bullet in boss.bullets.copy():
+			if bullet.rect.y >= objs["ai_settings"].screen_height:
+				boss.bullets.remove(bullet)
+			
+			
+			for k,ship in objs['ships'].items():
+				# 判断是否打中飞船
+				if ship.status == 1 and pygame.sprite.spritecollide(ship,boss.bullets,True):
+					print("Player" + str(ship.player) + " Boss bullet hit!!!")
+					ship.hit()
+
+
 			
 
 # 外星人-创建并将其加入到编组aliens中
@@ -103,11 +140,19 @@ def check_alien(objs):
 		if alien.rect.y >= objs['ai_settings'].screen_height:
 			objs['aliens'].remove(alien)
 
-	# 飞船触怪
+
 	for k,ship in objs['ships'].items():
+		# 飞船触怪
 		if ship.status == 1 and pygame.sprite.spritecollideany(ship, objs['aliens']):
 			ship.hit()
-			# print("Player" + str(ship.player) + " Ship hit!!!")
+			print("Player" + str(ship.player) + " Alien hit!!!")
+
+		# 飞船触BOSS
+		for k,boss in objs['bosss'].items():
+			if ship.status == 1 and pygame.sprite.collide_rect(ship, boss):
+				print("Player" + str(ship.player) + " Boss hit!!!")
+				ship.hit()
+		
 
 # 字体
 def build_fonts(objs):
@@ -138,13 +183,23 @@ def update_screen(objs):
 
 	# 飞船
 	for k,ship in objs['ships'].items():
-		ship.update()
-		ship.blitme()
 		# 飞船的子弹
 #		ship.bullets.update()
 		for bullet in ship.bullets.sprites():
 			bullet.update()
 			bullet.blitme()
+
+		ship.update()
+		ship.blitme()
+
+	# Boss
+	for k,boss in objs['bosss'].items():
+		for bullet in boss.bullets.sprites():
+			bullet.update()
+			bullet.blitme()
+
+		boss.update()
+		boss.blitme()
 
 	# 外星人
 	for alien in objs['aliens'].sprites():

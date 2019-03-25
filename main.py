@@ -10,6 +10,7 @@ from settings import Settings
 from images import Images
 from bg import Bg
 from ship import Ship
+from boss import Boss
 import game_functions as gf
 
 
@@ -33,10 +34,15 @@ def run_game():
 	# 创建飞船组
 	ships = {
 		1 : Ship(1,ai_settings ,images ,screen),
-		#2 : Ship(2,ai_settings ,images ,screen)
+		2 : Ship(2,ai_settings ,images ,screen)
 	}
 	# 创建外星人组
 	aliens = Group()
+
+	# Boss
+	bosss = {
+		1 : Boss(1,ai_settings ,images ,screen),
+	}
 
 	# 字体组
 	fonts = {
@@ -68,6 +74,7 @@ def run_game():
 		"screen" : screen,
 		"bgs" : bgs,
 		"ships" : ships,
+		"bosss" : bosss,
 		"aliens" : aliens,
 		"fonts" : fonts,
 
