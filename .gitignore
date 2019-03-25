@@ -1,0 +1,10 @@
+﻿.idea
+*.log
+vendor
+.vscode
+__pycache__
+material
+dist
+build
+main.spec
+main.exe
