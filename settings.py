@@ -65,7 +65,7 @@ class Settings():
 			},
 			2 : {'pic' : 'ship2',
 				'moving_point' : 4,
-				'fire_speen' : 1/4,
+				'fire_speen' : 1/8,
 				'bullet' : 2,
 				'bullet_lv' : 1,
 
@@ -136,8 +136,8 @@ class Settings():
 					"power" : 2,
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : -20,"move_x" : 0,"move_y" : -10,"angle" : 0,},
-							2:{"pic" : 'bullet2_2',"satrt_x" : -30, "start_y" : -10,"move_x" : 0,"move_y" : -10,"angle" : 0,},
-							3:{"pic" : 'bullet2_2',"satrt_x" : 30,"start_y" : -10,"move_x" : 0,"move_y" : -10,"angle" : 0,},
+							2:{"satrt_x" : -25, "start_y" : -8,"move_x" : 0,"move_y" : -10,"angle" : 0,},
+							3:{"satrt_x" : 25,"start_y" : -8,"move_x" : 0,"move_y" : -10,"angle" : 0,},
 					}
 				},
 				3: {
@@ -145,10 +145,10 @@ class Settings():
 					"power" : 1,
 					"fire" : {
 							1:{"satrt_x" : 0,"start_y" : -20,"move_x" : 0,"move_y" : -10,"angle" : 0,},
-							2:{"pic" : 'bullet2_2',"satrt_x" : -30, "start_y" : -8,"move_x" : 0,"move_y" : -8,"angle" : 0,},
-							3:{"pic" : 'bullet2_2',"satrt_x" : 30,"start_y" : -8,"move_x" : 0,"move_y" : -8,"angle" : 0,},
-							4:{"pic" : 'bullet2_3',"satrt_x" : -50, "start_y" : -50,"move_x" : 0,"move_y" : -20,"angle" : 0,},
-							5:{"pic" : 'bullet2_3',"satrt_x" : 50,"start_y" : -50,"move_x" : 0,"move_y" : -20,"angle" : 0,},
+							2:{"satrt_x" : -25, "start_y" : -8,"move_x" : 0,"move_y" : -10,"angle" : 0,},
+							3:{"satrt_x" : 25,"start_y" : -8,"move_x" : 0,"move_y" : -10,"angle" : 0,},
+							4:{"satrt_x" : -50, "start_y" : -4,"move_x" : 0,"move_y" : -10,"angle" : 0,},
+							5:{"satrt_x" : 50,"start_y" : -4,"move_x" : 0,"move_y" : -10,"angle" : 0,},
 					}
 				},
 			}
@@ -161,7 +161,7 @@ class Settings():
 				# 移动速度
 				'moving_point' : 2,
 				# 攻击速度
-				'fire_speen' : 1/2,
+				'fire_speen' : 1 / 2,
 				'bullet' : 1,
 				'bullet_lv' : 1,
 
